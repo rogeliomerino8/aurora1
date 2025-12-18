@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Send, Paperclip, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { SessionList, ChatMessage, SuggestionChips, ParameterPanel } from '@/components/oracle';
+import { SessionList, ChatMessage, SuggestionChips } from '@/components/oracle';
 import sessionsData from '@/data/oracle-sessions.json';
 import type { OracleSession, OracleMessage, ChartData } from '@/types';
 
@@ -170,7 +170,7 @@ export default function OraclePage() {
               <Textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Type your prompt here..."
+                placeholder="Escribe tu pregunta a Aurora..."
                 className="min-h-[100px] resize-none bg-background border-border/50 text-foreground placeholder:text-muted-foreground"
                 rows={3}
                 onKeyDown={(e) => {
@@ -186,11 +186,11 @@ export default function OraclePage() {
                 <div className="flex items-center gap-2">
                   <Button variant="ghost" size="sm" className="gap-2 h-8">
                     <Paperclip className="h-4 w-4" />
-                    <span className="hidden sm:inline text-xs">Attach</span>
+                    <span className="hidden sm:inline text-xs">Adjuntar</span>
                   </Button>
                   <Button variant="ghost" size="sm" className="gap-2 h-8">
                     <Sparkles className="h-4 w-4" />
-                    <span className="hidden sm:inline text-xs">Think</span>
+                    <span className="hidden sm:inline text-xs">Pensamiento profundo</span>
                   </Button>
                 </div>
                 
@@ -206,11 +206,6 @@ export default function OraclePage() {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Parameter Panel */}
-      <div className="w-[280px] shrink-0 border-l p-4">
-        <ParameterPanel />
       </div>
     </div>
   );

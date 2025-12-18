@@ -1,11 +1,12 @@
 'use client';
 
-import { Search, Bell, User, Menu, X } from 'lucide-react';
+import { Search, Bell, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useUIStore } from '@/lib/store';
 import { cn } from '@/lib/utils';
 import { NotificationsPanel } from './notifications-panel';
+import { UserMenu } from './user-menu';
 
 export function Header() {
   const { sidebarCollapsed, sidebarOpen, searchOpen, setSearchOpen, notificationsOpen, setNotificationsOpen, toggleSidebarOpen } = useUIStore();
@@ -65,12 +66,8 @@ export function Header() {
           {notificationsOpen && <NotificationsPanel />}
         </div>
 
-        {/* User Avatar */}
-        <Button variant="ghost" size="icon" className="rounded-full">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-            <User className="h-4 w-4" />
-          </div>
-        </Button>
+        {/* User Menu */}
+        <UserMenu />
       </div>
     </header>
   );

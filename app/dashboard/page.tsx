@@ -4,10 +4,12 @@ import { useState, useMemo } from 'react';
 import { DollarSign, Package, AlertTriangle, TrendingDown } from 'lucide-react';
 import { KPICard, NetworkStatusCard, AlertCarousel, StoreMap, stores, StoreDetailPanel } from '@/components/dashboard';
 import type { Alert } from '@/components/dashboard';
-import type { Store, Incident } from '@/types';
+import type { Store, Incident, SKU } from '@/types';
 import incidentsData from '@/data/incidents.json';
+import inventoryData from '@/data/inventory.json';
 
 const incidents = incidentsData as Incident[];
+const inventory = inventoryData as SKU[];
 
 // Generar alertas a partir de incidentes activos
 function generateAlertsFromIncidents(incidents: Incident[]): Alert[] {
@@ -127,6 +129,7 @@ export default function DashboardPage() {
               store={selectedStore}
               incidents={storeIncidents}
               onClose={handleClosePanel}
+              inventory={inventory}
             />
           ) : (
             <>

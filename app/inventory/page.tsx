@@ -14,7 +14,6 @@ export default function InventoryPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSKU, setSelectedSKU] = useState<string | null>(null);
   const [showOrderModal, setShowOrderModal] = useState(false);
-  const [viewMode, setViewMode] = useState<'operative' | 'strategic'>('operative');
 
   const filteredInventory = inventory.filter(
     (sku) =>
@@ -52,28 +51,6 @@ export default function InventoryPage() {
         <Button variant="outline" size="icon">
           <Filter className="h-4 w-4" />
         </Button>
-        <div className="flex rounded-lg border p-1">
-          <button
-            className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
-              viewMode === 'operative'
-                ? 'bg-primary text-primary-foreground'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-            onClick={() => setViewMode('operative')}
-          >
-            Operativa
-          </button>
-          <button
-            className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
-              viewMode === 'strategic'
-                ? 'bg-primary text-primary-foreground'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-            onClick={() => setViewMode('strategic')}
-          >
-            Estratégica
-          </button>
-        </div>
       </div>
 
       {/* Main Content */}

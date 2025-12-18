@@ -1,6 +1,6 @@
 'use client';
 
-import { Store, Incident } from '@/types';
+import { Store, Incident, SKU } from '@/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -14,14 +14,24 @@ import {
   ExternalLink,
   CheckCircle2,
   AlertCircle,
-  XCircle
+  XCircle,
+  DollarSign,
+  Package,
+  TrendingUp,
+  Phone,
+  Mail,
+  Calendar,
+  BarChart3,
+  ShoppingCart
 } from 'lucide-react';
 import Link from 'next/link';
+import { useMemo } from 'react';
 
 interface StoreDetailPanelProps {
   store: Store;
   incidents: Incident[];
   onClose: () => void;
+  inventory?: SKU[];
 }
 
 const statusConfig = {
@@ -62,7 +72,7 @@ const incidentTypeLabels = {
   stockout: 'Quiebre de Stock',
 };
 
-export function StoreDetailPanel({ store, incidents, onClose }: StoreDetailPanelProps) {
+export function StoreDetailPanel({ store, incidents, onClose, inventory = [] }: StoreDetailPanelProps) {
   const config = statusConfig[store.status];
   const StatusIcon = config.icon;
 
@@ -71,11 +81,37 @@ export function StoreDetailPanel({ store, incidents, onClose }: StoreDetailPanel
     inc => inc.status !== 'resolved'
   );
 
+  // Incidentes resueltos recientes (últimos 7 días)
+  const recentResolvedIncidents = useMemo(() => {
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    return incidents
+      .filter(inc => inc.status === 'resolved' && new Date(inc.updatedAt) >= sevenDaysAgo)
+      .slice(0, 3);
+  }, [incidents]);
+
+  // Calcular métricas de inventario
+  const inventoryMetrics = useMemo(() => {
+    const totalSKUs = inventory.length;
+    const lowStock = inventory.filter(sku => sku.status === 'low_stock' || sku.status === 'stockout').length;
+    const totalStock = inventory.reduce((sum, sku) => sum + sku.currentStock, 0);
+    const totalSales30d = inventory.reduce((sum, sku) => sum + (sku.sales30d * sku.price), 0);
+    const estimatedRevenue = totalSales30d * (store.operativity / 100);
+
+    return {
+      totalSKUs,
+      lowStock,
+      totalStock,
+      totalSales30d,
+      estimatedRevenue
+    };
+  }, [inventory, store.operativity]);
+
   // Acciones requeridas basadas en el estado de la tienda y sus incidentes
   const requiredActions = generateRequiredActions(store, activeIncidents);
 
   return (
-    <Card className="h-full flex flex-col">
+    <Card className="flex flex-col min-h-[600px]">
       <CardHeader className="pb-3 flex-shrink-0">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
@@ -107,14 +143,81 @@ export function StoreDetailPanel({ store, incidents, onClose }: StoreDetailPanel
           </div>
         </div>
 
-        {/* Info del Gerente */}
-        <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-          <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-            <User className="h-5 w-5 text-primary" />
+        {/* Métricas de Rendimiento */}
+        <div className="grid grid-cols-2 gap-2">
+          <div className="p-3 bg-muted/50 rounded-lg">
+            <div className="flex items-center gap-2 mb-1">
+              <DollarSign className="h-4 w-4 text-muted-foreground" />
+              <span className="text-xs text-muted-foreground">Ventas 30d</span>
+            </div>
+            <p className="text-lg font-semibold">
+              ${(inventoryMetrics.totalSales30d / 1000).toFixed(1)}K
+            </p>
           </div>
-          <div>
-            <p className="text-sm text-muted-foreground">Gerente</p>
-            <p className="font-medium">{store.manager}</p>
+          <div className="p-3 bg-muted/50 rounded-lg">
+            <div className="flex items-center gap-2 mb-1">
+              <Package className="h-4 w-4 text-muted-foreground" />
+              <span className="text-xs text-muted-foreground">SKUs</span>
+            </div>
+            <p className="text-lg font-semibold">{inventoryMetrics.totalSKUs}</p>
+          </div>
+          <div className="p-3 bg-muted/50 rounded-lg">
+            <div className="flex items-center gap-2 mb-1">
+              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+              <span className="text-xs text-muted-foreground">Stock Total</span>
+            </div>
+            <p className="text-lg font-semibold">{inventoryMetrics.totalStock.toLocaleString()}</p>
+          </div>
+          <div className="p-3 bg-muted/50 rounded-lg">
+            <div className="flex items-center gap-2 mb-1">
+              <AlertTriangle className="h-4 w-4 text-orange-500" />
+              <span className="text-xs text-muted-foreground">Stock Bajo</span>
+            </div>
+            <p className="text-lg font-semibold text-orange-600">{inventoryMetrics.lowStock}</p>
+          </div>
+        </div>
+
+        {/* Info del Gerente y Contacto */}
+        <div className="space-y-2">
+          <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+            <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <User className="h-5 w-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm text-muted-foreground">Gerente</p>
+              <p className="font-medium">{store.manager}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+            <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <MapPin className="h-5 w-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm text-muted-foreground">Dirección</p>
+              <p className="font-medium text-sm">{store.address}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Enlaces Rápidos */}
+        <div className="space-y-2">
+          <h4 className="font-medium text-sm flex items-center gap-2">
+            <BarChart3 className="h-4 w-4" />
+            Acciones Rápidas
+          </h4>
+          <div className="grid grid-cols-2 gap-2">
+            <Link href={`/inventory?store=${store.id}`}>
+              <Button variant="outline" size="sm" className="w-full justify-start gap-2 h-9">
+                <ShoppingCart className="h-4 w-4" />
+                Inventario
+              </Button>
+            </Link>
+            <Link href={`/incidents?store=${store.id}`}>
+              <Button variant="outline" size="sm" className="w-full justify-start gap-2 h-9">
+                <AlertCircle className="h-4 w-4" />
+                Incidentes
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -195,6 +298,38 @@ export function StoreDetailPanel({ store, incidents, onClose }: StoreDetailPanel
             </div>
           )}
         </div>
+
+        {/* Incidentes Resueltos Recientes */}
+        {recentResolvedIncidents.length > 0 && (
+          <div className="space-y-2">
+            <h4 className="font-medium flex items-center gap-2 text-sm">
+              <CheckCircle2 className="h-4 w-4 text-green-500" />
+              Resueltos Recientemente ({recentResolvedIncidents.length})
+            </h4>
+            <div className="space-y-2">
+              {recentResolvedIncidents.map((incident) => (
+                <Link
+                  key={incident.id}
+                  href={`/incidents/${incident.id}`}
+                  className="block"
+                >
+                  <div className="p-2 border rounded-lg hover:bg-muted/30 transition-colors cursor-pointer bg-green-50/50 border-green-200/50">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-medium truncate text-green-900">{incident.title}</p>
+                        <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
+                          <Clock className="h-3 w-3" />
+                          Resuelto {formatDate(incident.updatedAt)}
+                        </div>
+                      </div>
+                      <CheckCircle2 className="h-3 w-3 text-green-600 flex-shrink-0 mt-0.5" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

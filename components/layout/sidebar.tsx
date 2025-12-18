@@ -2,9 +2,11 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   LayoutGrid,
+  Store,
   Package,
   AlertTriangle,
   Settings,
@@ -19,6 +21,7 @@ import { Button } from '@/components/ui/button';
 
 const navItems = [
   { name: 'Centro de Mando', icon: LayoutGrid, href: '/dashboard' },
+  { name: 'Tiendas', icon: Store, href: '/stores' },
   { name: 'Inventario', icon: Package, href: '/inventory' },
   { name: 'Incidentes', icon: AlertTriangle, href: '/incidents' },
   { name: 'Aurora Oracle', icon: Sparkles, href: '/oracle' },
@@ -71,10 +74,15 @@ export function Sidebar() {
           {!sidebarCollapsed && (
             <>
               <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                  <Sparkles className="h-5 w-5 text-primary-foreground" />
+                <div className="flex h-24 w-24 items-center justify-center">
+                  <Image
+                    src="/logo.svg"
+                    alt="Aurora Logo"
+                    width={96}
+                    height={96}
+                    className="h-24 w-24"
+                  />
                 </div>
-                <span className="text-xl font-semibold text-foreground">Aurora</span>
               </div>
               <div className="flex items-center gap-1">
                 <Button
@@ -99,19 +107,16 @@ export function Sidebar() {
             </>
           )}
           {sidebarCollapsed && (
-            <div className="flex flex-col items-center gap-2 w-full">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                <Sparkles className="h-5 w-5 text-primary-foreground" />
+            <div className="flex items-center justify-center w-full">
+              <div className="flex h-16 w-16 items-center justify-center">
+                <Image
+                  src="/logo.svg"
+                  alt="Aurora Logo"
+                  width={64}
+                  height={64}
+                  className="h-16 w-16"
+                />
               </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleSidebar}
-                className="h-8 w-8"
-                aria-label="Expandir sidebar"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </Button>
             </div>
           )}
         </div>
@@ -142,6 +147,21 @@ export function Sidebar() {
             );
           })}
         </nav>
+
+        {/* Botón de expandir cuando está colapsado */}
+        {sidebarCollapsed && (
+          <div className="p-3 border-t border-sidebar-border">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleSidebar}
+              className="w-full h-10 hover:bg-accent"
+              aria-label="Expandir sidebar"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </Button>
+          </div>
+        )}
       </div>
     </aside>
     </>

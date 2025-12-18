@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Search } from 'lucide-react';
+import { Search, LayoutList, Kanban } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { IncidentList, IncidentDetail } from '@/components/incidents';
+import { IncidentList, IncidentDetail, IncidentsKanban } from '@/components/incidents';
 import incidentsData from '@/data/incidents.json';
 import type { Incident } from '@/types';
 
@@ -14,8 +14,21 @@ export default function IncidentsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedIncident, setSelectedIncident] = useState<string | null>(null);
   const [filter, setFilter] = useState<'all' | 'mine'>('all');
+  const [viewMode, setViewMode] = useState<'kanban' | 'list'>('kanban');
+  const [incidentsData, setIncidentsData] = useState<Incident[]>(incidents);
 
-  const filteredIncidents = incidents
+  const handleStatusChange = (incidentId: string, newStatus: string) => {
+    setIncidentsData((prev) =>
+      prev.map((incident) =>
+        incident.id === incidentId
+          ? { ...incident, status: newStatus as any }
+          : incident
+      )
+    );
+    console.log(`Incidente ${incidentId} movido a ${newStatus}`);
+  };
+
+  const filteredIncidents = incidentsData
     .filter((incident) => {
       if (filter === 'mine') {
         return incident.assignedTo === 'Carlos Méndez'; // Mock current user
@@ -36,7 +49,7 @@ export default function IncidentsPage() {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
 
-  const selectedIncidentData = incidents.find((i) => i.id === selectedIncident);
+  const selectedIncidentData = incidentsData.find((i) => i.id === selectedIncident);
 
   return (
     <div className="space-y-6">
@@ -47,7 +60,7 @@ export default function IncidentsPage() {
       </div>
 
       {/* Controls */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 flex-wrap">
         <div className="flex rounded-lg border p-1">
           <Button
             variant={filter === 'mine' ? 'default' : 'ghost'}
@@ -73,22 +86,49 @@ export default function IncidentsPage() {
             className="pl-9"
           />
         </div>
+        <div className="flex rounded-lg border p-1 ml-auto">
+          <Button
+            variant={viewMode === 'kanban' ? 'default' : 'ghost'}
+            size="sm"
+            onClick={() => setViewMode('kanban')}
+          >
+            <Kanban className="h-4 w-4 mr-1" />
+            Kanban
+          </Button>
+          <Button
+            variant={viewMode === 'list' ? 'default' : 'ghost'}
+            size="sm"
+            onClick={() => setViewMode('list')}
+          >
+            <LayoutList className="h-4 w-4 mr-1" />
+            Lista
+          </Button>
+        </div>
       </div>
 
       {/* Main Content */}
       <div className="grid gap-6 lg:grid-cols-5">
-        {/* List */}
-        <div className={selectedIncident ? 'lg:col-span-2' : 'lg:col-span-5'}>
-          <IncidentList
-            incidents={filteredIncidents}
-            selectedId={selectedIncident}
-            onSelect={setSelectedIncident}
-          />
+        {/* View */}
+        <div className={selectedIncident && viewMode === 'list' ? 'lg:col-span-2' : 'lg:col-span-5'}>
+          {viewMode === 'kanban' ? (
+            <IncidentsKanban
+              incidents={filteredIncidents}
+              selectedId={selectedIncident}
+              onSelect={setSelectedIncident}
+              onStatusChange={handleStatusChange}
+            />
+          ) : (
+            <IncidentList
+              incidents={filteredIncidents}
+              selectedId={selectedIncident}
+              onSelect={setSelectedIncident}
+            />
+          )}
         </div>
 
         {/* Detail */}
         {selectedIncidentData && (
-          <div className="lg:col-span-3">
+          <div className={viewMode === 'kanban' ? 'hidden' : 'lg:col-span-3'}>
             <IncidentDetail
               incident={selectedIncidentData}
               onClose={() => setSelectedIncident(null)}
