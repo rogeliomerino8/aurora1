@@ -1,0 +1,122 @@
+[
+  {
+    "id": "sku-001",
+    "name": "Leche Entera 1L",
+    "image": "/products/milk.jpg",
+    "category": "Lácteos",
+    "currentStock": 145,
+    "sales30d": 892,
+    "forecastNext30d": 920,
+    "status": "shrinkage_risk",
+    "price": 28.50,
+    "supplier": "Lala"
+  },
+  {
+    "id": "sku-002",
+    "name": "Pan Blanco Bimbo",
+    "image": "/products/bread.jpg",
+    "category": "Panadería",
+    "currentStock": 234,
+    "sales30d": 1250,
+    "forecastNext30d": 1180,
+    "status": "optimal",
+    "price": 42.00,
+    "supplier": "Bimbo"
+  },
+  {
+    "id": "sku-003",
+    "name": "Coca-Cola 600ml",
+    "image": "/products/coca.jpg",
+    "category": "Bebidas",
+    "currentStock": 45,
+    "sales30d": 2100,
+    "forecastNext30d": 2300,
+    "status": "low_stock",
+    "price": 18.50,
+    "supplier": "FEMSA"
+  },
+  {
+    "id": "sku-004",
+    "name": "Huevo Blanco 12pz",
+    "image": "/products/eggs.jpg",
+    "category": "Lácteos",
+    "currentStock": 0,
+    "sales30d": 450,
+    "forecastNext30d": 480,
+    "status": "stockout",
+    "price": 65.00,
+    "supplier": "San Juan"
+  },
+  {
+    "id": "sku-005",
+    "name": "Arroz Verde Valle 1kg",
+    "image": "/products/rice.jpg",
+    "category": "Abarrotes",
+    "currentStock": 320,
+    "sales30d": 280,
+    "forecastNext30d": 310,
+    "status": "optimal",
+    "price": 32.00,
+    "supplier": "Verde Valle"
+  },
+  {
+    "id": "sku-006",
+    "name": "Aceite Nutrioli 1L",
+    "image": "/products/oil.jpg",
+    "category": "Abarrotes",
+    "currentStock": 89,
+    "sales30d": 180,
+    "forecastNext30d": 200,
+    "status": "low_stock",
+    "price": 45.00,
+    "supplier": "Nutrioli"
+  },
+  {
+    "id": "sku-007",
+    "name": "Yoghurt Danone Natural",
+    "image": "/products/yogurt.jpg",
+    "category": "Lácteos",
+    "currentStock": 156,
+    "sales30d": 420,
+    "forecastNext30d": 450,
+    "status": "optimal",
+    "price": 22.50,
+    "supplier": "Danone"
+  },
+  {
+    "id": "sku-008",
+    "name": "Jamón Fud 400g",
+    "image": "/products/ham.jpg",
+    "category": "Carnes Frías",
+    "currentStock": 67,
+    "sales30d": 320,
+    "forecastNext30d": 380,
+    "status": "shrinkage_risk",
+    "price": 89.00,
+    "supplier": "Sigma"
+  },
+  {
+    "id": "sku-009",
+    "name": "Tortillas Maíz 1kg",
+    "image": "/products/tortillas.jpg",
+    "category": "Panadería",
+    "currentStock": 450,
+    "sales30d": 1800,
+    "forecastNext30d": 1750,
+    "status": "optimal",
+    "price": 25.00,
+    "supplier": "Maseca"
+  },
+  {
+    "id": "sku-010",
+    "name": "Cerveza Corona 6pack",
+    "image": "/products/beer.jpg",
+    "category": "Bebidas",
+    "currentStock": 78,
+    "sales30d": 560,
+    "forecastNext30d": 620,
+    "status": "low_stock",
+    "price": 125.00,
+    "supplier": "Grupo Modelo"
+  }
+]

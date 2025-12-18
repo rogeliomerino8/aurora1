@@ -1,0 +1,37 @@
+[
+  {
+    "id": "session-001",
+    "title": "Análisis Q4 2024",
+    "createdAt": "2024-12-15T09:00:00Z",
+    "updatedAt": "2024-12-15T09:45:00Z",
+    "messageCount": 12
+  },
+  {
+    "id": "session-002",
+    "title": "Proyección ventas Navidad",
+    "createdAt": "2024-12-10T14:30:00Z",
+    "updatedAt": "2024-12-10T15:20:00Z",
+    "messageCount": 8
+  },
+  {
+    "id": "session-003",
+    "title": "Simulación aumento precios",
+    "createdAt": "2024-12-08T11:00:00Z",
+    "updatedAt": "2024-12-08T11:45:00Z",
+    "messageCount": 15
+  },
+  {
+    "id": "session-004",
+    "title": "Análisis merma mensual",
+    "createdAt": "2024-12-05T16:00:00Z",
+    "updatedAt": "2024-12-05T16:30:00Z",
+    "messageCount": 6
+  },
+  {
+    "id": "session-005",
+    "title": "Forecast lácteos 2025",
+    "createdAt": "2024-12-01T10:00:00Z",
+    "updatedAt": "2024-12-01T11:15:00Z",
+    "messageCount": 20
+  }
+]

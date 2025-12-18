@@ -1,0 +1,102 @@
+[
+  {
+    "id": "store-001",
+    "name": "Tienda Polanco",
+    "latitude": 19.4326,
+    "longitude": -99.1332,
+    "status": "operational",
+    "operativity": 98,
+    "address": "Av. Presidente Masaryk 123",
+    "manager": "Carlos Ruiz"
+  },
+  {
+    "id": "store-002",
+    "name": "Tienda Santa Fe",
+    "latitude": 19.3590,
+    "longitude": -99.2622,
+    "status": "critical",
+    "operativity": 72,
+    "address": "Centro Comercial Santa Fe",
+    "manager": "Ana López"
+  },
+  {
+    "id": "store-003",
+    "name": "Tienda Condesa",
+    "latitude": 19.4115,
+    "longitude": -99.1735,
+    "status": "operational",
+    "operativity": 95,
+    "address": "Av. Tamaulipas 45",
+    "manager": "Roberto García"
+  },
+  {
+    "id": "store-004",
+    "name": "Tienda Roma Norte",
+    "latitude": 19.4195,
+    "longitude": -99.1620,
+    "status": "warning",
+    "operativity": 85,
+    "address": "Calle Durango 200",
+    "manager": "María Fernández"
+  },
+  {
+    "id": "store-005",
+    "name": "Tienda Coyoacán",
+    "latitude": 19.3500,
+    "longitude": -99.1620,
+    "status": "operational",
+    "operativity": 97,
+    "address": "Av. Universidad 1200",
+    "manager": "Jorge Hernández"
+  },
+  {
+    "id": "store-006",
+    "name": "Tienda Del Valle",
+    "latitude": 19.3750,
+    "longitude": -99.1730,
+    "status": "operational",
+    "operativity": 94,
+    "address": "Av. Insurgentes Sur 1500",
+    "manager": "Laura Martínez"
+  },
+  {
+    "id": "store-007",
+    "name": "Tienda Satélite",
+    "latitude": 19.5050,
+    "longitude": -99.2340,
+    "status": "warning",
+    "operativity": 82,
+    "address": "Circuito Centro Comercial 78",
+    "manager": "Pedro Sánchez"
+  },
+  {
+    "id": "store-008",
+    "name": "Tienda Pedregal",
+    "latitude": 19.3100,
+    "longitude": -99.2000,
+    "status": "operational",
+    "operativity": 99,
+    "address": "Periférico Sur 4500",
+    "manager": "Diana Torres"
+  },
+  {
+    "id": "store-009",
+    "name": "Tienda Interlomas",
+    "latitude": 19.3950,
+    "longitude": -99.2850,
+    "status": "critical",
+    "operativity": 68,
+    "address": "Av. Jesús del Monte 200",
+    "manager": "Miguel Ángel Reyes"
+  },
+  {
+    "id": "store-010",
+    "name": "Tienda Reforma",
+    "latitude": 19.4280,
+    "longitude": -99.1500,
+    "status": "operational",
+    "operativity": 96,
+    "address": "Paseo de la Reforma 500",
+    "manager": "Sofía Morales"
+  }
+]

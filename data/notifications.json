@@ -1,0 +1,47 @@
+[
+  {
+    "id": "notif-001",
+    "title": "Incidente crítico detectado",
+    "message": "Posible hurto en Tienda Santa Fe - Pasillo 3",
+    "type": "alert",
+    "read": false,
+    "createdAt": "2024-12-18T08:45:00Z",
+    "link": "/incidents/inc-001"
+  },
+  {
+    "id": "notif-002",
+    "title": "Quiebre de stock",
+    "message": "Huevo Blanco 12pz sin stock hace 48 horas",
+    "type": "alert",
+    "read": false,
+    "createdAt": "2024-12-18T07:00:00Z",
+    "link": "/inventory"
+  },
+  {
+    "id": "notif-003",
+    "title": "Sincronización completada",
+    "message": "Oracle ERP sincronizado correctamente",
+    "type": "success",
+    "read": true,
+    "createdAt": "2024-12-18T06:30:00Z",
+    "link": "/settings"
+  },
+  {
+    "id": "notif-004",
+    "title": "Nueva predicción disponible",
+    "message": "Forecast Q1 2025 listo para revisión",
+    "type": "info",
+    "read": false,
+    "createdAt": "2024-12-17T18:00:00Z",
+    "link": "/oracle"
+  },
+  {
+    "id": "notif-005",
+    "title": "Incidente resuelto",
+    "message": "Anomalía en ventas de Tienda Satélite resuelta",
+    "type": "success",
+    "read": true,
+    "createdAt": "2024-12-16T11:30:00Z",
+    "link": "/incidents/inc-004"
+  }
+]

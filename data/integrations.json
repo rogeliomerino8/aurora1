@@ -1,0 +1,64 @@
+[
+  {
+    "id": "oracle-erp",
+    "name": "Oracle ERP",
+    "icon": "database",
+    "status": "connected",
+    "lastSync": "2024-12-18T10:30:00Z",
+    "description": "Sistema de planificación empresarial"
+  },
+  {
+    "id": "shopify",
+    "name": "Shopify",
+    "icon": "shopping-bag",
+    "status": "disconnected",
+    "description": "Plataforma de e-commerce"
+  },
+  {
+    "id": "sap",
+    "name": "SAP Business One",
+    "icon": "layers",
+    "status": "connected",
+    "lastSync": "2024-12-18T09:45:00Z",
+    "description": "Gestión empresarial integrada"
+  },
+  {
+    "id": "quickbooks",
+    "name": "QuickBooks",
+    "icon": "calculator",
+    "status": "error",
+    "lastSync": "2024-12-17T18:00:00Z",
+    "description": "Software de contabilidad"
+  },
+  {
+    "id": "salesforce",
+    "name": "Salesforce CRM",
+    "icon": "users",
+    "status": "connected",
+    "lastSync": "2024-12-18T10:00:00Z",
+    "description": "Gestión de relaciones con clientes"
+  },
+  {
+    "id": "stripe",
+    "name": "Stripe",
+    "icon": "credit-card",
+    "status": "connected",
+    "lastSync": "2024-12-18T10:25:00Z",
+    "description": "Procesamiento de pagos"
+  },
+  {
+    "id": "hubspot",
+    "name": "HubSpot",
+    "icon": "mail",
+    "status": "disconnected",
+    "description": "Marketing y automatización"
+  },
+  {
+    "id": "google-analytics",
+    "name": "Google Analytics",
+    "icon": "bar-chart",
+    "status": "connected",
+    "lastSync": "2024-12-18T10:15:00Z",
+    "description": "Análisis web y comportamiento"
+  }
+]
