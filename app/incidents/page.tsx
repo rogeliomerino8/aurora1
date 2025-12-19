@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Search, LayoutList, Kanban } from 'lucide-react';
+import { Search, LayoutList, Kanban, Plus } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { IncidentList, IncidentDetail, IncidentsKanban } from '@/components/incidents';
+import { IncidentList, IncidentDetail, IncidentsKanban, NewIncidentModal } from '@/components/incidents';
+import type { NewIncidentData } from '@/components/incidents';
 import incidentsData from '@/data/incidents.json';
 import type { Incident } from '@/types';
 
@@ -16,6 +17,41 @@ export default function IncidentsPage() {
   const [filter, setFilter] = useState<'all' | 'mine'>('all');
   const [viewMode, setViewMode] = useState<'kanban' | 'list'>('kanban');
   const [incidentsData, setIncidentsData] = useState<Incident[]>(incidents);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleAddIncident = (data: NewIncidentData) => {
+    const newIncident: Incident = {
+      id: `incident-${Date.now()}`,
+      title: data.title,
+      description: data.description,
+      severity: data.severity,
+      status: 'open',
+      type: data.type,
+      storeId: data.storeId,
+      storeName: getStoreName(data.storeId),
+      assignedTo: data.assignedTo,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    setIncidentsData((prev) => [newIncident, ...prev]);
+    console.log('Nuevo incidente creado:', newIncident);
+  };
+
+  const getStoreName = (storeId: string) => {
+    const storeNames: Record<string, string> = {
+      'store-001': 'Tienda Polanco',
+      'store-002': 'Tienda Santa Fe',
+      'store-003': 'Tienda Condesa',
+      'store-004': 'Tienda Roma Norte',
+      'store-005': 'Tienda Coyoacán',
+      'store-006': 'Tienda Del Valle',
+      'store-007': 'Tienda Satélite',
+      'store-008': 'Tienda Pedregal',
+      'store-009': 'Tienda Interlomas',
+      'store-010': 'Tienda Reforma',
+    };
+    return storeNames[storeId] || 'Tienda Desconocida';
+  };
 
   const handleStatusChange = (incidentId: string, newStatus: string) => {
     setIncidentsData((prev) =>
@@ -54,9 +90,15 @@ export default function IncidentsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold">Incidentes</h1>
-        <p className="text-muted-foreground">Gestión y seguimiento de incidentes en tiendas</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Incidentes</h1>
+          <p className="text-muted-foreground">Gestión y seguimiento de incidentes en tiendas</p>
+        </div>
+        <Button onClick={() => setIsModalOpen(true)}>
+          <Plus className="h-4 w-4 mr-2" />
+          Registrar Incidente
+        </Button>
       </div>
 
       {/* Controls */}
@@ -136,6 +178,13 @@ export default function IncidentsPage() {
           </div>
         )}
       </div>
+
+      {/* Modal */}
+      <NewIncidentModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleAddIncident}
+      />
     </div>
   );
 }
