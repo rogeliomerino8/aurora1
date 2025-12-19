@@ -199,28 +199,6 @@ export function StoreDetailPanel({ store, incidents, onClose, inventory = [] }: 
           </div>
         </div>
 
-        {/* Enlaces Rápidos */}
-        <div className="space-y-2">
-          <h4 className="font-medium text-sm flex items-center gap-2">
-            <BarChart3 className="h-4 w-4" />
-            Acciones Rápidas
-          </h4>
-          <div className="grid grid-cols-2 gap-2">
-            <Link href={`/inventory?store=${store.id}`}>
-              <Button variant="outline" size="sm" className="w-full justify-start gap-2 h-9">
-                <ShoppingCart className="h-4 w-4" />
-                Inventario
-              </Button>
-            </Link>
-            <Link href={`/incidents?store=${store.id}`}>
-              <Button variant="outline" size="sm" className="w-full justify-start gap-2 h-9">
-                <AlertCircle className="h-4 w-4" />
-                Incidentes
-              </Button>
-            </Link>
-          </div>
-        </div>
-
         {/* Acciones Requeridas */}
         {requiredActions.length > 0 && (
           <div className="space-y-2">

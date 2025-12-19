@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { DollarSign, Package, AlertTriangle, TrendingDown } from 'lucide-react';
-import { KPICard, NetworkStatusCard, AlertCarousel, StoreMap, stores, StoreDetailPanel } from '@/components/dashboard';
+import { KPICard, StoresMetricsCard, AlertCarousel, StoreMap, stores, StoreDetailPanel } from '@/components/dashboard';
 import type { Alert } from '@/components/dashboard';
 import type { Store, Incident, SKU } from '@/types';
 import incidentsData from '@/data/incidents.json';
@@ -133,7 +133,10 @@ export default function DashboardPage() {
             />
           ) : (
             <>
-              <NetworkStatusCard percentage={87} />
+              <StoresMetricsCard
+                percentage={70}
+                averageRevenue="$240K"
+              />
               <AlertCarousel alerts={alerts} />
             </>
           )}

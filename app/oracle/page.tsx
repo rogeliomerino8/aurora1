@@ -1,14 +1,13 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { Send, Paperclip, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { SessionList, ChatMessage, SuggestionChips } from '@/components/oracle';
 import sessionsData from '@/data/oracle-sessions.json';
 import type { OracleSession, OracleMessage, ChartData } from '@/types';
-
-const sessions = sessionsData as OracleSession[];
 
 // Mock chart data for responses
 const mockChartData: ChartData = {
@@ -40,6 +39,7 @@ const mockResponses = [
 ];
 
 export default function OraclePage() {
+  const [sessions, setSessions] = useState<OracleSession[]>(sessionsData as OracleSession[]);
   const [selectedSession, setSelectedSession] = useState<string | null>('session-001');
   const [messages, setMessages] = useState<OracleMessage[]>([
     {
@@ -105,6 +105,24 @@ export default function OraclePage() {
     setSelectedSession(null);
   };
 
+  const handleDeleteSession = (sessionId: string) => {
+    // Eliminar la sesión del estado
+    setSessions((prevSessions) => prevSessions.filter((s) => s.id !== sessionId));
+
+    // Si la sesión eliminada es la actualmente seleccionada, limpiar la selección
+    if (selectedSession === sessionId) {
+      setSelectedSession(null);
+      setMessages([
+        {
+          id: '1',
+          role: 'assistant',
+          content: '¡Hola! Soy Aurora Oracle, tu asistente de predicciones y análisis. ¿En qué puedo ayudarte hoy?\n\nPuedo ayudarte a:\n• Predecir ventas futuras\n• Simular escenarios de negocio\n• Analizar tendencias y patrones\n• Optimizar inventario',
+          timestamp: new Date().toISOString(),
+        },
+      ]);
+    }
+  };
+
   return (
     <div className="flex h-[calc(100vh-7rem)] gap-0 -m-6">
       {/* Session List */}
@@ -114,6 +132,7 @@ export default function OraclePage() {
           selectedId={selectedSession}
           onSelect={setSelectedSession}
           onNewSession={handleNewSession}
+          onDeleteSession={handleDeleteSession}
         />
       </div>
 
@@ -125,9 +144,15 @@ export default function OraclePage() {
             <div className="flex flex-col items-center justify-center gap-8 min-h-[60vh]">
               {/* Welcome Section */}
               <div className="flex flex-col items-center gap-4 text-center max-w-2xl">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
-                    <Sparkles className="h-6 w-6 text-primary-foreground" />
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="flex h-10 w-10 items-center justify-center">
+                    <Image
+                      src="/clippahtgroup.svg"
+                      alt="Aurora Oracle Logo"
+                      width={40}
+                      height={40}
+                      className="h-10 w-10"
+                    />
                   </div>
                   <h2 className="text-2xl font-semibold text-foreground">Aurora Oracle</h2>
                 </div>
@@ -147,8 +172,8 @@ export default function OraclePage() {
 
           {isTyping && (
             <div className="flex gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                <Sparkles className="h-4 w-4" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-transparent">
+                <img src="/clippahtgroup.svg" alt="Aurora Oracle" className="h-7 w-7" />
               </div>
               <div className="rounded-lg bg-muted px-4 py-3">
                 <div className="flex gap-1">
